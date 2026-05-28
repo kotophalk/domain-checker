@@ -54,10 +54,24 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(results).encode('utf-8'))
         else:
             # Serve static files
+            import urllib.parse
+            import posixpath
+
             if self.path == '/':
                 self.path = '/static/index.html'
-            elif not self.path.startswith('/static/'):
-                self.path = '/static' + self.path
+            else:
+                if not self.path.startswith('/static/'):
+                    self.path = '/static' + self.path
+
+                # Prevent path traversal
+                # Strip query strings and fragments as SimpleHTTPRequestHandler does
+                clean_path = self.path.split('?', 1)[0].split('#', 1)[0]
+                resolved = posixpath.normpath(urllib.parse.unquote(clean_path))
+                if not resolved.startswith('/static/') and resolved != '/static':
+                    self.send_response(403)
+                    self.end_headers()
+                    self.wfile.write(b"403 Forbidden")
+                    return
                 
             return super().do_GET()
 
