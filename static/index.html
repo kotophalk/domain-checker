@@ -32,6 +32,15 @@
     </div>
 
     <script>
+        function escapeHtml(unsafe) {
+            return (unsafe || '').toString()
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
         async function checkDomains() {
             const input = document.getElementById('domainsInput').value;
             const btn = document.getElementById('checkBtn');
@@ -57,15 +66,18 @@
                     const div = document.createElement('div');
                     div.className = 'result-item';
                     
+                    const safeDomain = escapeHtml(item.domain);
+                    const safeError = escapeHtml(item.error);
+
                     if (item.error) {
                         div.classList.add('error');
-                        div.innerHTML = `<span>${item.domain}</span><span>Ошибка: ${item.error}</span>`;
+                        div.innerHTML = `<span>${safeDomain}</span><span>Ошибка: ${safeError}</span>`;
                     } else if (item.free) {
                         div.classList.add('free');
-                        div.innerHTML = `<span>${item.domain}</span><span>Свободен ✅</span>`;
+                        div.innerHTML = `<span>${safeDomain}</span><span>Свободен ✅</span>`;
                     } else {
                         div.classList.add('taken');
-                        div.innerHTML = `<span>${item.domain}</span><span>Занят ❌</span>`;
+                        div.innerHTML = `<span>${safeDomain}</span><span>Занят ❌</span>`;
                     }
                     
                     resultsDiv.appendChild(div);
