@@ -1,9 +1,6 @@
-import sys
-import subprocess
 import json
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
-import threading
 import time
 
 import whois
