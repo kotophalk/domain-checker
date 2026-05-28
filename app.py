@@ -5,9 +5,11 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import threading
 import time
+import functools
 
 import whois
 
+@functools.lru_cache(maxsize=1024)
 def check_domain(domain):
     try:
         q = whois.query(domain)
