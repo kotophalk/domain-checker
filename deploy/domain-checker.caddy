@@ -1,0 +1,21 @@
+# Конфиг Caddy для инструмента. Кладётся в /etc/caddy/conf.d/domain-checker.caddy,
+# откуда его подхватывает `import` из общего /etc/caddy/Caddyfile (тот приходит
+# из репозитория slovostat; сниппет (common) — сжатие, охранные заголовки, лог —
+# объявлен там).
+#
+#   sudo install -m 644 /opt/domain-checker/deploy/domain-checker.caddy /etc/caddy/conf.d/
+#   sudo -u caddy caddy validate --config /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+#
+# Сертификат Caddy получает и продлевает сам — но только после того, как
+# A-запись домена начнёт указывать на этот сервер (135.106.185.112).
+#
+# ХОСТ НИЖЕ — ЗАМЕНИТЬ на выбранный (поддомен хаба или отдельный домен).
+
+domains.delosvod.ru {
+	import common domain-checker
+
+	# Ответ /api/check на 20 доменов .ru занимает до ~10 с (интервал 0.5 с к
+	# whois TCI). У Caddy нет дефолтного таймаута апстрима, как у nginx — ок.
+	reverse_proxy 127.0.0.1:8002
+}

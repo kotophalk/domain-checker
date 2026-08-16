@@ -1,0 +1,21 @@
+name: тесты
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # 3.10 — минимальная поддерживаемая, 3.12 — версия из Dockerfile.
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Зависимостей нет — ставить нечего. Тесты офлайн, в сеть не ходят.
+      - run: python -m unittest discover -s tests -v

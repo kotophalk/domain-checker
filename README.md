@@ -24,7 +24,7 @@ docker build -t domain-checker .
 docker run -d --name domain-checker -p 8080:8080 --restart unless-stopped domain-checker
 ```
 
-Для публичного размещения ставьте перед сервисом reverse-proxy с TLS (nginx/Caddy) и включайте `TRUST_PROXY=1`, чтобы лимит на IP считался по реальному адресу клиента.
+Для публичного размещения ставьте перед сервисом reverse-proxy с TLS (nginx/Caddy) и включайте `TRUST_PROXY=1`, чтобы лимит на IP считался по реальному адресу клиента. Готовая схема для VPS — в разделе «Деплой».
 
 ## API
 
@@ -62,6 +62,23 @@ docker run -d --name domain-checker -p 8080:8080 --restart unless-stopped domain
 | `CACHE_TTL`, `CACHE_MAX` | `60`, `10000` | кэш успешных результатов, сек / записей (`0` — выключить) |
 | `RDAP_BOOTSTRAP_REFRESH` | `1` | обновлять список RDAP-серверов с IANA при старте и раз в сутки (иначе — снимок `data/rdap_dns.json`) |
 | `LOG_LEVEL` | `INFO` | уровень логирования |
+
+## Деплой
+
+Схема та же, что у соседних инструментов на том же VPS (подробно — в `docs/deploy.md` репозитория [slovostat](https://github.com/kotophalk/slovostat)): Caddy на хосте терминирует TLS, каждый инструмент — свой каталог в `/opt` со своим `docker-compose.yml` и портом на `127.0.0.1`.
+
+```bash
+sudo install -d -o deploy -g deploy /opt/domain-checker
+git clone https://github.com/kotophalk/domain-checker.git /opt/domain-checker
+cd /opt/domain-checker
+cp .env.example .env          # порт 8002 и лимиты — при необходимости поправить
+docker compose up -d --build
+curl -s http://127.0.0.1:8002/healthz
+```
+
+Домен: вписать выбранный хост в [`deploy/domain-checker.caddy`](deploy/domain-checker.caddy), положить файл в `/etc/caddy/conf.d/`, `sudo -u caddy caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy`. A-запись → IP сервера; сертификат Caddy получит сам.
+
+Обновление: `/opt/domain-checker/deploy/update.sh` (подтягивает `origin/main`, пересобирает, ждёт `/healthz`). Автодеплой: GitHub Actions после зелёных тестов на `main` запускает тот же скрипт по SSH-ключу с forced command; секреты `DEPLOY_SSH_KEY`, `DEPLOY_HOST`, `DEPLOY_KNOWN_HOSTS` — как у slovostat.
 
 ## Тесты
 

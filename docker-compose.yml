@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    image: domain-checker
+    restart: unless-stopped
+    # Наружу приложение не смотрит: его выставляет Caddy на хосте.
+    # 8000 — slovostat, 8001 — itogoskaz, 8002 — этот сервис.
+    ports:
+      - "127.0.0.1:${DOMAIN_CHECKER_PORT:-8002}:8080"
+    environment:
+      # За Caddy IP клиента приходит в X-Forwarded-For; порт слушает только
+      # 127.0.0.1, так что подделать заголовок снаружи нельзя.
+      TRUST_PROXY: "1"
+      MAX_DOMAINS: ${MAX_DOMAINS:-20}
+      RATE_LIMIT_PER_MIN: ${RATE_LIMIT_PER_MIN:-60}
+      RATE_LIMIT_BURST: ${RATE_LIMIT_BURST:-60}
+      CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN:-}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    # Приложение — чистый stdlib: ~30 МБ в покое, ответы регистратур режутся
+    # на 256 КБ. Лимит держит инструмент в рамках, чтобы не уронить соседей.
+    mem_limit: 192m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # healthcheck объявлен в Dockerfile (/healthz).

@@ -34,9 +34,13 @@ LIVE_TESTS=1 python3 -m unittest tests.test_live -v
 curl 'http://localhost:8080/api/check?domains=example.ru,пример.рф,test.com'
 ```
 
-Docker: `docker build -t domain-checker . && docker run -p 8080:8080 domain-checker`.
+Docker: `docker build -t domain-checker . && docker run -p 8080:8080 domain-checker`. Прод: `docker compose up -d --build` (порт `127.0.0.1:8002`, `.env` из `.env.example`).
 
 Зависимостей нет вообще — только stdlib Python 3.10+. Сборки и линтера нет. Все настройки — переменные окружения (таблица в README).
+
+## Прод
+
+VPS `lulu` (135.106.185.112, ssh-алиас `lulu`, пользователь `deploy`), каталог `/opt/domain-checker`, контейнер на `127.0.0.1:8002` за Caddy хоста (`/etc/caddy/conf.d/domain-checker.caddy`, шаблон в `deploy/`). Соседи на той же машине: slovostat (8000, docker) и itogoskaz (8001, systemd) — их не трогать; общий `/etc/caddy/Caddyfile` приходит из репозитория slovostat, свои блоки — только в `conf.d/`. Обновление — `deploy/update.sh` (руками или из GitHub Actions `деплой` после зелёных `тесты` на `main`). Валидацию Caddy запускать как `sudo -u caddy caddy validate …`, иначе логи создаются от root и reload падает.
 
 ## Архитектура
 
