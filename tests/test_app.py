@@ -63,6 +63,19 @@ class ApiCheckTests(ServerTestCase):
         for d in data:
             self.assertEqual(set(d), {"domain", "ascii", "free", "error", "source"})
 
+    def test_raw_utf8_and_percent_encoded_idn(self):
+        # curl шлёт кириллицу сырыми байтами, браузер — через encodeURIComponent; оба должны работать
+        import socket
+        with socket.create_connection(("127.0.0.1", self.port), timeout=10) as s:
+            s.sendall("GET /api/check?domains=пример.рф HTTP/1.0\r\nHost: x\r\n\r\n".encode("utf-8"))
+            raw = b""
+            while chunk := s.recv(65536):
+                raw += chunk
+        body = json.loads(raw.split(b"\r\n\r\n", 1)[1].decode("utf-8"))
+        self.assertEqual(body[0]["domain"], "пример.рф")
+        status, _, data = self.get_json("/api/check?domains=%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80.%D1%80%D1%84")
+        self.assertEqual((status, data[0]["domain"]), (200, "пример.рф"))
+
     def test_dedup_and_separators(self):
         status, _, data = self.get_json("/api/check?domains=a.ru%0Ab.ru;A.RU,,b.ru")
         self.assertEqual(status, 200)

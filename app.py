@@ -185,6 +185,12 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def _dispatch(self, head: bool) -> None:
+        # http.server декодирует строку запроса как latin-1; сырые UTF-8-байты
+        # в URL (curl без percent-encoding, «пример.рф») иначе превращаются в кракозябры.
+        try:
+            self.path = self.path.encode("latin-1").decode("utf-8")
+        except UnicodeError:
+            pass
         parts = urlsplit(self.path)
         path = parts.path
         if path == "/api/check":
