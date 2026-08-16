@@ -1,0 +1,21 @@
+% TCI Whois Service. Terms of use:
+% https://tcinet.ru/documents/whois_ru_rf.pdf (in Russian)
+% https://tcinet.ru/documents/whois_su.pdf (in Russian)
+
+domain:        NIC.SU
+nserver:       ns3-fwl2.nic.ru.
+nserver:       ns4-fwl2.nic.ru.
+nserver:       ns8-fwl2.nic.ru.
+state:         REGISTERED, DELEGATED
+org:           
+phone:         +7.4957370601
+fax:           +7.4957370602
+e-mail:        ru-ncc@nic.ru
+registrar:     RUCENTER-SU
+created:       2001-09-29T20:00:00Z
+paid-till:     2027-09-30T21:00:00Z
+free-date:     2027-11-01
+source:        TCI
+
+Last updated on 2026-08-15T12:08:01Z
+

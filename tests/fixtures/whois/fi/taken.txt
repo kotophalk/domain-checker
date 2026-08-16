@@ -1,0 +1,50 @@
+
+domain.............: nic.fi
+status.............: Registered
+created............: 16.2.1999 00:00:00
+expires............: 2.3.2027 14:08:22
+available..........: 2.4.2027 14:08:22
+modified...........: 31.1.2026 16:08:34
+holder transfer....: 7.11.2014 16:50:08
+RegistryLock.......: no
+
+Nameservers
+
+nserver............: ns-se.elisa.net [OK]
+nserver............: ns-fi.elisa.net [OK]
+
+DNSSEC
+
+dnssec.............: no
+
+Holder
+
+name...............: Elisa Oyj
+register number....: 0116510-6
+address............: PL 1
+postal.............: 00061
+city...............: ELISA
+country............: Finland
+phone..............: 
+holder email.......: 
+
+Registrar
+
+registrar..........: Ascio Technologies
+www................: www.ascio.com
+
+Reseller
+
+name...............: Elisa Oyj
+email..............: domain-admin@elisa.fi
+
+Tech
+
+name...............: Elisa Oyj
+email..............: domain-admin@elisa.fi
+
+>>> Last update of WHOIS database: 15.8.2026 15:00:13 (EET) <<<
+
+
+Copyright (c) Finnish Transport and Communications Agency Traficom
+

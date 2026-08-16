@@ -3,80 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whois Checker (.RU & others)</title>
+    <title>Проверка доменов — .ru, .рф, .su, .com и другие</title>
+    <meta name="description" content="Быстрая массовая проверка свободных доменов: .ru, .рф, .su, .com, .net, .org и сотни других зон. Списком, бесплатно, без регистрации.">
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; }
-        textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; margin-bottom: 15px; font-family: monospace; font-size: 14px; }
+        .container { max-width: 640px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; margin-top: 0; }
+        p.hint { color: #666; font-size: 14px; }
+        textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; margin-bottom: 15px; font-family: monospace; font-size: 14px; box-sizing: border-box; }
         button { background: #3498db; color: white; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; width: 100%; transition: background 0.3s; }
         button:hover { background: #2980b9; }
         button:disabled { background: #95a5a6; cursor: not-allowed; }
-        .results { margin-top: 25px; }
-        .result-item { padding: 12px; margin-bottom: 8px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; background: #ecf0f1; border-left: 5px solid #bdc3c7; }
+        .summary { margin-top: 20px; font-size: 14px; color: #555; display: none; }
+        .summary b { color: #27ae60; }
+        .results { margin-top: 12px; }
+        .result-item { padding: 12px; margin-bottom: 8px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #ecf0f1; border-left: 5px solid #bdc3c7; word-break: break-all; }
+        .result-item .name { font-family: monospace; }
+        .result-item .status { white-space: nowrap; }
         .result-item.free { background: #e8f8f5; border-left-color: #2ecc71; color: #27ae60; font-weight: bold; }
         .result-item.taken { background: #fdf2e9; border-left-color: #e74c3c; color: #c0392b; }
-        .result-item.error { background: #fef9e7; border-left-color: #f1c40f; color: #f39c12; }
+        .result-item.error { background: #fef9e7; border-left-color: #f1c40f; color: #b9770e; }
+        .result-item.error .status { white-space: normal; text-align: right; font-size: 14px; }
+        .banner { padding: 12px; margin-top: 15px; border-radius: 4px; background: #fef9e7; border-left: 5px solid #f1c40f; color: #b9770e; display: none; }
         .spinner { display: none; margin: 10px auto; width: 30px; height: 30px; border: 3px solid rgba(0,0,0,0.1); border-radius: 50%; border-top-color: #3498db; animation: spin 1s ease-in-out infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        footer { text-align: center; color: #999; font-size: 12px; margin-top: 25px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Проверка доменов</h1>
-        <p>Введите домены (каждый с новой строки или через запятую). Зона .ru поддерживается.</p>
-        <textarea id="domainsInput" placeholder="example.ru&#10;test-domain-123.com&#10;kotophalk-seo.ru"></textarea>
-        <button id="checkBtn" onclick="checkDomains()">Проверить</button>
+        <p class="hint">Введите домены — каждый с новой строки или через запятую. Поддерживаются <span id="zonesHint">.ru, .рф, .su, .com и сотни других зон</span>. Проверяются домены второго уровня (например, <code>example.ru</code>, <code>пример.рф</code>, <code>example.co.uk</code>).</p>
+        <textarea id="domainsInput" placeholder="example.ru&#10;пример.рф&#10;test-domain-123.com"></textarea>
+        <button id="checkBtn">Проверить</button>
         <div class="spinner" id="spinner"></div>
+        <div class="banner" id="banner"></div>
+        <div class="summary" id="summary"></div>
         <div class="results" id="results"></div>
     </div>
+    <footer>Данные — из RDAP и whois регистратур. Результат «Свободен» означает, что домен не найден в реестре на момент проверки; окончательную доступность подтверждает регистратор.</footer>
 
     <script>
-        async function checkDomains() {
-            const input = document.getElementById('domainsInput').value;
+        (function () {
+            const input = document.getElementById('domainsInput');
             const btn = document.getElementById('checkBtn');
             const spinner = document.getElementById('spinner');
+            const banner = document.getElementById('banner');
+            const summary = document.getElementById('summary');
             const resultsDiv = document.getElementById('results');
-            
-            if (!input.trim()) return;
-            
-            const domains = input.split(/[\n,]+/).map(d => d.trim()).filter(d => d.length > 3);
-            if (domains.length === 0) return;
+            let maxDomains = 20;
 
-            btn.disabled = true;
-            spinner.style.display = 'block';
-            resultsDiv.innerHTML = '';
-            
-            try {
-                // We send a GET request with comma separated domains
-                const query = domains.join(',');
-                const response = await fetch(`/api/check?domains=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'result-item';
-                    
-                    if (item.error) {
-                        div.classList.add('error');
-                        div.innerHTML = `<span>${item.domain}</span><span>Ошибка: ${item.error}</span>`;
-                    } else if (item.free) {
-                        div.classList.add('free');
-                        div.innerHTML = `<span>${item.domain}</span><span>Свободен ✅</span>`;
-                    } else {
-                        div.classList.add('taken');
-                        div.innerHTML = `<span>${item.domain}</span><span>Занят ❌</span>`;
-                    }
-                    
-                    resultsDiv.appendChild(div);
-                });
-            } catch (error) {
-                resultsDiv.innerHTML = `<div class="result-item error">Ошибка соединения с сервером</div>`;
-            } finally {
-                btn.disabled = false;
-                spinner.style.display = 'none';
+            fetch('/api/limits').then(r => r.ok ? r.json() : null).then(j => {
+                if (j && Number.isInteger(j.max_domains) && j.max_domains > 0) maxDomains = j.max_domains;
+            }).catch(() => {});
+
+            function showBanner(text) { banner.textContent = text; banner.style.display = text ? 'block' : 'none'; }
+
+            function renderItem(item) {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                const name = document.createElement('span');
+                name.className = 'name';
+                name.textContent = item.domain;
+                if (item.ascii && item.ascii !== item.domain) name.title = item.ascii;
+                const status = document.createElement('span');
+                status.className = 'status';
+                if (item.error) {
+                    div.classList.add('error');
+                    status.textContent = item.error;
+                } else if (item.free) {
+                    div.classList.add('free');
+                    status.textContent = 'Свободен ✅';
+                } else {
+                    div.classList.add('taken');
+                    status.textContent = 'Занят ❌';
+                }
+                div.appendChild(name);
+                div.appendChild(status);
+                resultsDiv.appendChild(div);
             }
-        }
+
+            function parseInput(text) {
+                const seen = new Set();
+                const out = [];
+                text.split(/[\n,;]+/).forEach(s => {
+                    const d = s.trim();
+                    if (!d) return;
+                    const key = d.toLowerCase();
+                    if (seen.has(key)) return;
+                    seen.add(key);
+                    out.push(d);
+                });
+                return out;
+            }
+
+            async function checkBatch(batch) {
+                const response = await fetch('/api/check?domains=' + encodeURIComponent(batch.join(',')));
+                let data = null;
+                try { data = await response.json(); } catch (e) { data = null; }
+                if (!response.ok) {
+                    const msg = (data && data.error) ? data.error : ('Ошибка сервера (' + response.status + ')');
+                    const err = new Error(msg);
+                    err.status = response.status;
+                    err.retryAfter = data && data.retry_after;
+                    throw err;
+                }
+                if (!Array.isArray(data)) throw new Error('Некорректный ответ сервера');
+                return data;
+            }
+
+            async function checkDomains() {
+                showBanner('');
+                const domains = parseInput(input.value);
+                if (domains.length === 0) return;
+
+                btn.disabled = true;
+                spinner.style.display = 'block';
+                resultsDiv.textContent = '';
+                summary.style.display = 'none';
+                let free = 0, taken = 0, errors = 0;
+
+                try {
+                    for (let i = 0; i < domains.length; i += maxDomains) {
+                        const batch = domains.slice(i, i + maxDomains);
+                        let data;
+                        try {
+                            data = await checkBatch(batch);
+                        } catch (e) {
+                            const left = domains.length - i;
+                            if (e.status === 429) {
+                                showBanner(e.message + (e.retryAfter ? ' (через ' + e.retryAfter + ' с)' : '') + '. Не проверено доменов: ' + left + '.');
+                            } else if (e.status) {
+                                showBanner(e.message + '. Не проверено доменов: ' + left + '.');
+                            } else {
+                                showBanner('Ошибка соединения с сервером. Не проверено доменов: ' + left + '.');
+                            }
+                            break;
+                        }
+                        data.forEach(item => {
+                            renderItem(item);
+                            if (item.error) errors++; else if (item.free) free++; else taken++;
+                        });
+                    }
+                } finally {
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    if (free + taken + errors > 0) {
+                        summary.textContent = '';
+                        const b = document.createElement('b');
+                        b.textContent = 'Свободно: ' + free;
+                        summary.appendChild(b);
+                        summary.appendChild(document.createTextNode(' · Занято: ' + taken + (errors ? ' · Ошибки: ' + errors : '')));
+                        summary.style.display = 'block';
+                    }
+                }
+            }
+
+            btn.addEventListener('click', checkDomains);
+            input.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) checkDomains(); });
+        })();
     </script>
 </body>
 </html>

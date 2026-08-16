@@ -1,0 +1,34 @@
+Domain:                       nic.sk
+Created:                      2003-09-30
+Valid Until:                  2026-09-30
+Updated:                      2025-09-08
+Domain Status:                clientTransferProhibited, clientUpdateProhibited, clientDeleteProhibited
+Nameserver:                   ns1.nic.sk
+Nameserver:                   ns2.nic.sk
+Nameserver:                   ns3.nic.sk
+Nameserver:                   ns4.nic.sk
+
+Domain registrant:            WY-237559
+Name:                         Igor Strečko
+Organization:                 Webglobe, a.s.
+Organization ID:              52486567
+Street:                       Stará Prievozská 1349/2
+City:                         Bratislava - mestská časť Ružinov
+Postal Code:                  821 09
+Country Code:                 SK
+Authorised Registrar:         WEBG-0001
+Created:                      2022-01-04
+Updated:                      2022-01-04
+
+Registrar:                    WEBG-0001
+Name:                         Webglobe, a.s.
+Organization:                 Webglobe, a.s.
+Organization ID:              52486567
+Phone:                        +421.258101062
+Email:                        info@webglobe.sk,adriana.slugenova@webglobe.sk
+Street:                       Stará Prievozská 1349/2
+City:                         Bratislava - mestská časť Ružinov
+Postal Code:                  821 09
+Country Code:                 SK
+Created:                      2017-09-01
+Updated:                      2026-08-04

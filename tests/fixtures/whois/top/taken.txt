@@ -1,0 +1,67 @@
+Domain Name: nic.top
+Registry Domain ID: D20140521G10001G_09355319-top
+Registrar WHOIS Server: whois.com.top
+Registrar URL: http://www.com.top
+Updated Date: 2025-05-21T03:04:59Z
+Creation Date: 2014-05-21T11:42:02Z
+Registry Expiry Date: 2029-05-21T11:42:02Z
+Registrar: Bangning Digital Technology Co.,Ltd
+Registrar IANA ID: 4158
+Registrar Abuse Contact Email: abuse@nic.top
+Registrar Abuse Contact Phone: +86.02586883421
+Domain Status: ok https://icann.org/epp#OK
+Registry Registrant ID: REDACTED FOR PRIVACY
+Registrant Name: REDACTED FOR PRIVACY
+Registrant Organization: REDACTED FOR PRIVACY
+Registrant Street:  REDACTED FOR PRIVACY
+Registrant City: REDACTED FOR PRIVACY
+Registrant State/Province: Jiang Su
+Registrant Postal Code: REDACTED FOR PRIVACY
+Registrant Country: CN
+Registrant Phone: REDACTED FOR PRIVACY
+Registrant Phone Ext: REDACTED FOR PRIVACY
+Registrant Fax: REDACTED FOR PRIVACY
+Registrant Fax Ext: REDACTED FOR PRIVACY
+Registrant Email: Please query the RDDS service of the Registrar of Record  identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.
+Registry Admin ID: REDACTED FOR PRIVACY
+Admin Name: REDACTED FOR PRIVACY
+Admin Organization: REDACTED FOR PRIVACY
+Admin Street:  REDACTED FOR PRIVACY
+Admin City: REDACTED FOR PRIVACY
+Admin State/Province: REDACTED FOR PRIVACY
+Admin Postal Code: REDACTED FOR PRIVACY
+Admin Country: REDACTED FOR PRIVACY
+Admin Phone: REDACTED FOR PRIVACY
+Admin Phone Ext: REDACTED FOR PRIVACY
+Admin Fax: REDACTED FOR PRIVACY
+Admin Fax Ext: REDACTED FOR PRIVACY
+Admin Email: Please query the RDDS service of the Registrar of Record  identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.
+Registry Tech ID: REDACTED FOR PRIVACY
+Tech Name: REDACTED FOR PRIVACY
+Tech Organization: REDACTED FOR PRIVACY
+Tech Street:  REDACTED FOR PRIVACY
+Tech City: REDACTED FOR PRIVACY
+Tech State/Province: REDACTED FOR PRIVACY
+Tech Postal Code: REDACTED FOR PRIVACY
+Tech Country: REDACTED FOR PRIVACY
+Tech Phone: REDACTED FOR PRIVACY
+Tech Phone Ext: REDACTED FOR PRIVACY
+Tech Fax: REDACTED FOR PRIVACY
+Tech Fax Ext: REDACTED FOR PRIVACY
+Tech Email: Please query the RDDS service of the Registrar of Record  identified in this output for information on how to contact the Registrant, Admin, or Tech contact of the queried domain name.
+Name Server: cns1.zdnscloud.net
+Name Server: ins1.zdnscloud.com
+DNSSEC: unsigned
+URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+>>> Last update of WHOIS database: 2026-08-15T12:05:24Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: The information in the Whois database is collected through ICANN-accredited registrars. Jiangsu bangning science & technology Co., Ltd(“BANGNING”) make this information available to you and do not guarantee its accuracy or completeness. By submitting a whois query, you agree to abide by the following terms of use: you agree that you may use this data only for lawful purposes and that under no circumstances will you use this data to:  (1) to allow， enable， or otherwise support the transmission of mass unsolicited， commercial advertising or solicitations via direct mail， electronic mail， or by telephone; (2) in contravention of any applicable data and privacy protection acts; or (3) to enable high volume， automated， electronic processes that apply to BANGNING (or its computer systems). Compilation， repackaging， dissemination， or other use of the WHOIS database in its entirety， or of a substantial portion thereof， is not allowed without BANGNING prior written permission. You agree not to use electronic processes that are automated and high-volume to access or query the whois database except as reasonably necessary to register domain names or modify existing registrations. BANGNING reserves the right to restrict your access to the whois database in its sole discretion to ensure operational stability.  BANGNING may restrict or terminate your access to the whois database for failure to abide by these terms of use. BANGNING reserves the right to modify these terms at any time without prior or subsequent notification of any kind. 

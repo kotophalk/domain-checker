@@ -1,0 +1,47 @@
+Search results may not be used for commercial, advertising, recompilation,
+repackaging, redistribution, reuse, obscuring or other similar activities.
+
+Estonia .ee Top Level Domain WHOIS server
+
+Domain:
+name:       nic.ee
+status:     ok (paid and in zone)
+registered: 2010-07-04 04:21:15 +03:00
+changed:    2025-10-16 13:22:04 +03:00
+expire:     2030-11-30
+outzone:    
+delete:     
+
+Registrant:
+name:       NIC.ee OÜ
+org id:     11453325
+country:    EE
+email:      Not Disclosed - Visit www.internet.ee for webbased WHOIS
+phone:      Not Disclosed - Visit www.internet.ee for webbased WHOIS
+changed:    2025-10-16 13:22:04 +03:00
+
+Administrative contact:
+name:       Not Disclosed - Visit www.internet.ee for webbased WHOIS
+email:      Not Disclosed - Visit www.internet.ee for webbased WHOIS
+changed:    Not Disclosed - Visit www.internet.ee for webbased WHOIS
+
+Technical contact:
+name:       Not Disclosed - Visit www.internet.ee for webbased WHOIS
+email:      Not Disclosed - Visit www.internet.ee for webbased WHOIS
+changed:    Not Disclosed - Visit www.internet.ee for webbased WHOIS
+
+Registrar:
+name:       Elkdata OÜ
+url:        http://www.veebimajutus.ee
+phone:      +372 683 5188
+changed:    2025-12-13 13:07:06 +02:00
+
+Name servers:
+nserver:   ns2.elkdata.ee
+nserver:   ns3.elkdata.net
+nserver:   ns.elkdata.ee
+changed:   2010-11-29 14:05:00 +02:00
+
+
+Estonia .ee Top Level Domain WHOIS server
+More information at http://internet.ee

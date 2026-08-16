@@ -1,0 +1,38 @@
+%
+%AM TLD whois server #1
+% Please see 'whois -h whois.amnic.net help' for usage.
+%
+
+   Domain name: nic.am
+   Registrar:   amnic
+   Status:      active
+
+   Registrant:
+      Internet Society NGO
+      17/3 A. Khachatryan str.
+      Yerevan,  0012
+      AM
+
+   Administrative contact:
+      Anna Karakhanyan
+      Internet Society NGO
+      17/3 A. Khachatryan str.
+      Yerevan, 0012
+      AM
+      hostmaster@amnic.net
+      +374 91 427743
+
+   Technical contact:
+      Misak Khachatryan
+      Internet Society NGO
+      17/3 A. Khachatryan str.
+      Yerevan, 0012
+      AM
+      hostmaster@amnic.net
+      +374-93-199840
+
+   No name servers provided
+
+   Registered:    1997-01-01
+   Last modified: 2017-12-28
+

@@ -1,0 +1,1 @@
+Notice: Effective May 1, 2026, the WHOIS service has been retired in accordance with ICANN's RDAP transition policy. All registration data queries are now served via RDAP. The Registration Data Access Protocol (RDAP) base URL is: https://rdap.gmoregistry.net/rdap/

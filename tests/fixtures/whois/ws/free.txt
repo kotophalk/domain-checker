@@ -1,0 +1,6 @@
+The queried object does not exist: zzq-surely-free-domain-98765.ws.
+URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/
+>>> Last update of WHOIS database: 2026-08-15T12:09:13Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+

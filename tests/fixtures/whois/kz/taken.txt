@@ -1,0 +1,39 @@
+Whois Server for the KZ top level domain name.
+This server is maintained by KazNIC Organization, a ccTLD manager for Kazakhstan Republic.
+
+Domain Name............: nic.kz
+
+Organization Using Domain Name
+Name...................: KazNIC
+Organization Name......: KazNIC
+Street Address.........: Ilyashev str. 47/2
+City...................: Semey
+State..................: VKO
+Postal Code............: 071400
+Country................: KZ
+
+Administrative Contact/Agent
+NIC Handle.............: PG134
+Name...................: Gussev, Pavel M.
+Phone Number...........: +77222600006 
+Fax Number.............: +77222604740 
+Email Address..........: pg@nic.kz
+
+Nameserver in listed order
+
+Primary server.........: ns.nic.kz
+Primary ip address.....: 0.0.0.0, 2001:678:98:1::5
+
+Secondary server.......: ns.relcom.kz
+Secondary ip address...: 0.0.0.0
+
+Secondary server.......: ns1.nic.kz
+Secondary ip address...: 0.0.0.0, 2a01:7640:9000::7
+
+
+Domain created: 1999-08-17 21:34:57 (GMT+0:00)
+Last modified : 2022-12-05 17:28:31 (GMT+0:00)
+Domain status : ok - Normal state.
+                
+Registar created: KAZNIC
+Current Registar: KAZNIC

@@ -1,0 +1,8 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+tests/
+*.log
+CLAUDE.md
+README.md

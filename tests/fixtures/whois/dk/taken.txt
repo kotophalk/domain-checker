@@ -1,0 +1,35 @@
+# Hello 0.0.0.0. Your session has been logged.
+#
+# Copyright (c) 2002 - 2026 by Punktum dk A/S
+#
+# Version: 6.3.0
+#
+# The data in the DK Whois database is provided by Punktum dk A/S
+# for information purposes only, and to assist persons in obtaining
+# information about or related to a domain name registration record.
+# We do not guarantee its accuracy. We will reserve the right to remove
+# access for entities abusing the data, without notice.
+#
+# Any use of this material to target advertising or similar activities
+# are explicitly forbidden and will be prosecuted. Punktum dk A/S
+# requests to be notified of any such activities or suspicions thereof.
+
+Domain:               nic.dk
+DNS:                  nic.dk
+Registered:           1996-05-07
+Expires:              2027-06-30
+Registration period:  1 year
+VID:                  yes
+DNSSEC:               Signed delegation
+Status:               Active
+
+Nameservers
+Hostname:             b.nic.dk
+Hostname:             c.nic.dk
+Hostname:             h.nic.dk
+Hostname:             l.nic.dk
+Hostname:             s.nic.dk
+Hostname:             t.nic.dk
+
+# Use option --show-handles to get handle information.
+# whois -h whois.punktum.dk HELP for more help.

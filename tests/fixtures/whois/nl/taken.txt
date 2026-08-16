@@ -1,0 +1,26 @@
+Domain name: nic.nl
+Status:      active
+
+Registrar:
+   Stichting Internet Domeinregistratie Nederland
+   Meander 501
+   6825MD Arnhem
+   Netherlands
+
+Abuse Contact:
+   +31.263525555
+   abuse@sidn.nl
+
+DNSSEC:      yes
+
+Domain nameservers:
+   ns-852.awsdns-42.net
+   ns-1798.awsdns-32.co.uk
+   ns-498.awsdns-62.com
+   ns-1509.awsdns-60.org
+
+Creation Date: 1994-12-31
+
+Updated Date: 2026-07-30
+
+Record maintained by: SIDN BV

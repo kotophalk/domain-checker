@@ -1,0 +1,17 @@
+Domain name: nic.by
+Registrar: Reliable Software, Ltd
+Org: Общество с ограниченной ответственностью "ОТКРЫТЫЙ КОНТАКТ"
+Country: BY
+Address: 220004, -, г. Минск, ул. Кальварийская, д. 17-1, к. 518
+Registration or other identification number: 100008738
+Phone: +375173882885
+Email: info@domain.by
+Name Server: ns1.open.by
+Name Server: ns2.open.by
+Update Date: 2026-03-16
+Creation Date: 2011-07-08
+Expiration Date: 2026-08-26
+
+-------------------------------------------
+Service provided by Belarusian Cloud Technologies LLC
+

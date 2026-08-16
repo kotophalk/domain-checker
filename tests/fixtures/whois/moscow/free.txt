@@ -1,0 +1,10 @@
+  Domain not found.
+
+>>> Last update of WHOIS database: 2026-08-15T12:08:53Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+% By submitting a query to Whois Service
+% you agree to abide by the following terms of use:
+% http://flexireg.net/whois-terms_of_use.html (in Russian)
+% http://flexireg.net/whois-terms_of_use.en.html (in English)

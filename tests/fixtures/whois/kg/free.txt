@@ -1,0 +1,8 @@
+% This is the .kg ccTLD Whois server
+% Register your own domain at https://www.cctld.kg
+% Whois web service - https://www.cctld.kg/whois
+
+Domain ZZQ-SURELY-FREE-DOMAIN-98765.KG
+
+Data not found. This domain is available for registration.
+
