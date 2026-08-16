@@ -36,6 +36,19 @@
         .spinner { display: none; margin: 10px auto; width: 30px; height: 30px; border: 3px solid rgba(0,0,0,0.1); border-radius: 50%; border-top-color: #3498db; animation: spin 1s ease-in-out infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         footer { text-align: center; color: #999; font-size: 12px; margin-top: 25px; }
+        /* Другие инструменты экосистемы */
+        .other-tools { max-width: 640px; margin: 24px auto 0; padding: 0 30px; box-sizing: border-box; }
+        .other-tools-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+        .other-tools-title { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7f8c8d; }
+        .other-tools-all { font-size: 13px; font-weight: 600; color: #3498db; text-decoration: none; white-space: nowrap; }
+        .other-tools-all:hover { text-decoration: underline; }
+        .other-tools-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .other-tools-list a { display: flex; flex-direction: column; gap: 3px; height: 100%; padding: 12px 14px; background: #fff; border: 1px solid #e1e6ea; border-radius: 6px; text-decoration: none; color: #7f8c8d; box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s; }
+        .other-tools-list a:hover { border-color: #3498db; box-shadow: 0 2px 8px rgba(52,152,219,0.15); }
+        .other-tools-list .tool-name { font-size: 15px; font-weight: 700; color: #2c3e50; }
+        .other-tools-list a:hover .tool-name { color: #2980b9; }
+        .other-tools-list .tool-desc { font-size: 12px; line-height: 1.4; }
+        @media (max-width: 600px) { .other-tools { padding: 0; } .other-tools-list { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -50,6 +63,17 @@
         <div class="summary" id="summary"></div>
         <div class="results" id="results"></div>
     </div>
+    <nav class="other-tools" aria-label="Другие инструменты Делосвода">
+        <div class="other-tools-header">
+            <span class="other-tools-title">Другие инструменты</span>
+            <a class="other-tools-all" href="https://delosvod.ru/">Все инструменты →</a>
+        </div>
+        <ul class="other-tools-list">
+            <li><a href="https://domenomer.delosvod.ru/"><span class="tool-name">Доменомер</span><span class="tool-desc">Массовая проверка Ahrefs Domain Rating (DR) списком доменов, с экспортом в CSV</span></a></li>
+            <li><a href="https://slovostat.ru/"><span class="tool-name">Словостат</span><span class="tool-desc">Подсчёт слов и символов на странице по URL — только видимый текст</span></a></li>
+            <li><a href="https://slovoprav.ru/"><span class="tool-name">Словоправ</span><span class="tool-desc">ТЗ для копирайтера по реальному ТОПу Яндекса за 2–4 минуты</span></a></li>
+        </ul>
+    </nav>
     <footer>Данные — из RDAP и whois регистратур. Результат «Свободен» означает, что домен не найден в реестре на момент проверки; окончательную доступность подтверждает регистратор.<br>Бесплатный инструмент экосистемы <a href="https://delosvod.ru/">Делосвод</a>.</footer>
 
     <script>
