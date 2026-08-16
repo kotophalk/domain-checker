@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проверка доменов — .ru, .рф, .su, .com и другие</title>
-    <meta name="description" content="Быстрая массовая проверка свободных доменов: .ru, .рф, .su, .com, .net, .org и сотни других зон. Списком, бесплатно, без регистрации.">
+    <title>Свободомен — проверка свободных доменов: .ru, .рф, .su, .com и другие</title>
+    <meta name="description" content="Свободомен — быстрая массовая проверка свободных доменов: .ru, .рф, .su, .com, .net, .org и более 1200 зон. Списком, бесплатно, без регистрации.">
+    <link rel="canonical" href="https://svobodomen.delosvod.ru/">
+    <meta property="og:title" content="Свободомен — проверка свободных доменов">
+    <meta property="og:description" content="Массовая проверка доменов списком: .ru, .рф, .su, .com и более 1200 зон. Бесплатно, без регистрации.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://svobodomen.delosvod.ru/">
+    <meta property="og:locale" content="ru_RU">
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 640px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; margin-top: 0; }
+        h1 { text-align: center; color: #2c3e50; margin: 0 0 4px; }
+        p.tagline { text-align: center; color: #7f8c8d; margin: 0 0 18px; font-size: 15px; }
         p.hint { color: #666; font-size: 14px; }
+        footer a { color: #7f8c8d; }
         textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; margin-bottom: 15px; font-family: monospace; font-size: 14px; box-sizing: border-box; }
         button { background: #3498db; color: white; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 4px; width: 100%; transition: background 0.3s; }
         button:hover { background: #2980b9; }
@@ -32,7 +40,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Проверка доменов</h1>
+        <h1>Свободомен</h1>
+        <p class="tagline">Проверка свободных доменов списком</p>
         <p class="hint">Введите домены — каждый с новой строки или через запятую. Поддерживаются <span id="zonesHint">.ru, .рф, .su, .com и сотни других зон</span>. Проверяются домены второго уровня (например, <code>example.ru</code>, <code>пример.рф</code>, <code>example.co.uk</code>).</p>
         <textarea id="domainsInput" placeholder="example.ru&#10;пример.рф&#10;test-domain-123.com"></textarea>
         <button id="checkBtn">Проверить</button>
@@ -41,7 +50,7 @@
         <div class="summary" id="summary"></div>
         <div class="results" id="results"></div>
     </div>
-    <footer>Данные — из RDAP и whois регистратур. Результат «Свободен» означает, что домен не найден в реестре на момент проверки; окончательную доступность подтверждает регистратор.</footer>
+    <footer>Данные — из RDAP и whois регистратур. Результат «Свободен» означает, что домен не найден в реестре на момент проверки; окончательную доступность подтверждает регистратор.<br>Бесплатный инструмент экосистемы <a href="https://delosvod.ru/">Делосвод</a>.</footer>
 
     <script>
         (function () {

@@ -1,0 +1,14 @@
+# Бренд-домены «Свободомена» → постоянный редирект на основной адрес.
+# svobodomen.ru и свободомен.рф (punycode xn--90abhe8ahcbby.xn--p1ai).
+#
+# Ставить ТОЛЬКО когда A-записи этих доменов (и www) указывают на 135.106.185.112:
+# иначе Caddy будет безуспешно запрашивать сертификаты и упрётся в лимиты
+# Let's Encrypt (5 неудачных проверок в час на имя).
+#
+#   sudo install -m 644 /opt/domain-checker/deploy/svobodomen-redirects.caddy /etc/caddy/conf.d/
+#   sudo -u caddy caddy validate --config /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+
+svobodomen.ru, www.svobodomen.ru, xn--90abhe8ahcbby.xn--p1ai, www.xn--90abhe8ahcbby.xn--p1ai {
+	redir https://svobodomen.delosvod.ru{uri} permanent
+}

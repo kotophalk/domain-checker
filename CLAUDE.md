@@ -40,7 +40,7 @@ Docker: `docker build -t domain-checker . && docker run -p 8080:8080 domain-chec
 
 ## Прод
 
-VPS `lulu` (135.106.185.112, ssh-алиас `lulu`, пользователь `deploy`), каталог `/opt/domain-checker`, контейнер на `127.0.0.1:8002` за Caddy хоста (`/etc/caddy/conf.d/domain-checker.caddy`, шаблон в `deploy/`). Соседи на той же машине: slovostat (8000, docker) и itogoskaz (8001, systemd) — их не трогать; общий `/etc/caddy/Caddyfile` приходит из репозитория slovostat, свои блоки — только в `conf.d/`. Обновление — `deploy/update.sh` (руками или из GitHub Actions `деплой` после зелёных `тесты` на `main`). Валидацию Caddy запускать как `sudo -u caddy caddy validate …`, иначе логи создаются от root и reload падает.
+Публичный адрес — **https://svobodomen.delosvod.ru** (бренд «Свободомен», хаб экосистемы — delosvod.ru; бренд-домены svobodomen.ru и свободомен.рф зарегистрированы, редиректы с них — `deploy/svobodomen-redirects.caddy`, ставятся, когда появится DNS). VPS `lulu` (135.106.185.112, ssh-алиас `lulu`, пользователь `deploy`), каталог `/opt/domain-checker`, контейнер на `127.0.0.1:8002` за Caddy хоста (`/etc/caddy/conf.d/domain-checker.caddy` из `deploy/`). Соседи на той же машине: slovostat (8000, docker) и itogoskaz (8001, systemd) — их не трогать; общий `/etc/caddy/Caddyfile` приходит из репозитория slovostat, свои блоки — только в `conf.d/`. Обновление — `deploy/update.sh` (руками или из GitHub Actions `деплой` после зелёных `тесты` на `main`). Валидацию Caddy запускать как `sudo -u caddy caddy validate …`, иначе логи создаются от root и reload падает.
 
 ## Архитектура
 
