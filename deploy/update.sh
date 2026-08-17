@@ -7,6 +7,18 @@
 #   - руками: /opt/domain-checker/deploy/update.sh
 set -euo pipefail
 
+# Один деплой на сервере за раз. Три инструмента (slovostat, domain-checker,
+# domenomer) живут на одной машине и делят Docker; параллельные `docker build`
+# и `docker image prune` гоняются (16.08.2026: два деплоя из трёх упали с
+# «a prune operation is already running» / containerd race). Лок общий для всех
+# трёх update.sh; ждём очередь до 10 минут, а не падаем.
+LOCK=/tmp/lulu-deploy.lock
+exec 9>"$LOCK"
+if ! flock -w 600 9; then
+	echo "не дождался очереди деплоя (${LOCK}) за 10 минут" >&2
+	exit 1
+fi
+
 cd /opt/domain-checker
 
 PORT="$(sed -n 's/^DOMAIN_CHECKER_PORT=//p' .env 2>/dev/null | head -1)"
