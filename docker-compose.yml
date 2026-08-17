@@ -16,6 +16,7 @@ services:
       RATE_LIMIT_BURST: ${RATE_LIMIT_BURST:-60}
       CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN:-}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      METRIKA_ID: ${METRIKA_ID:-}
     # Приложение — чистый stdlib: ~30 МБ в покое, ответы регистратур режутся
     # на 256 КБ. Лимит держит инструмент в рамках, чтобы не уронить соседей.
     mem_limit: 192m

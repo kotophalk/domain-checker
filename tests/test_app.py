@@ -146,6 +146,29 @@ class MiscRoutesTests(ServerTestCase):
         self.assertEqual(body, b"")
         self.assertGreater(int(headers["Content-Length"]), 0)
 
+    def test_index_without_metrika_id_has_no_counter(self):
+        """По умолчанию (стенд, тесты, чужие копии) хиты в Метрику не шлются."""
+        app.Config.METRIKA_ID = ""
+        for p in ("/", "/static/index.html"):
+            _, _, body = self.get(p)
+            self.assertNotIn(b"mc.yandex.ru", body, p)
+            self.assertNotIn(b"__METRIKA_ID__", body, p)
+            self.assertNotIn(b"metrika:start", body, p)
+
+    def test_index_with_metrika_id_renders_counter(self):
+        app.Config.METRIKA_ID = "12345678"
+        try:
+            status, headers, body = self.get("/")
+            self.assertEqual(status, 200)
+            self.assertEqual(int(headers["Content-Length"]), len(body))
+            self.assertIn(b"https://mc.yandex.ru/metrika/tag.js?id=12345678", body)
+            self.assertIn(b'ym(12345678,"init"', body)
+            self.assertIn(b"https://mc.yandex.ru/watch/12345678", body)
+            self.assertIn(b"webvisor:false", body)
+            self.assertNotIn(b"__METRIKA_ID__", body)
+        finally:
+            app.Config.METRIKA_ID = ""
+
     def test_no_source_or_traversal(self):
         for p in ("/app.py", "/checker.py", "/static/../app.py", "/static/../../etc/passwd", "/tests/test_app.py", "/data/rdap_dns.json"):
             self.assertEqual(self.get(p)[0], 404, p)

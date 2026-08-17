@@ -55,6 +55,7 @@ docker run -d --name domain-checker -p 8080:8080 --restart unless-stopped domain
 | `RATE_LIMIT_PER_MIN`, `RATE_LIMIT_BURST` | `60`, `60` | проверок домена в минуту на IP и размер «ведра» (`0` — выключить лимит) |
 | `TRUST_PROXY` | `0` | `1` — брать IP клиента из `X-Forwarded-For` / `X-Real-IP` |
 | `CORS_ALLOW_ORIGIN` | пусто | `*` или список origin через запятую — разрешить вызовы API с других сайтов |
+| `METRIKA_ID` | пусто | Номер счётчика Яндекс.Метрики; пусто — сниппет из `index.html` вырезается |
 | `CHECK_WORKERS` | `16` | одновременных проверок доменов на весь сервер |
 | `UPSTREAM_CONCURRENCY` | `8` | одновременных соединений с регистратурами |
 | `WHOIS_MIN_INTERVAL`, `RDAP_MIN_INTERVAL` | `0.5`, `0.1` | пауза (сек) между запросами к одному whois-/RDAP-хосту |

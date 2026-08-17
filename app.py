@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import sys
 import threading
 import time
@@ -43,6 +44,22 @@ class Config:
     CORS_ALLOW_ORIGIN = os.environ.get("CORS_ALLOW_ORIGIN", "")  # "" — без CORS; "*" или список через запятую
     RDAP_BOOTSTRAP_REFRESH = os.environ.get("RDAP_BOOTSTRAP_REFRESH", "1") == "1"
     REQUEST_TIMEOUT = _env_int("REQUEST_TIMEOUT", 60)         # таймаут сокета клиента, сек
+    # Номер счётчика Яндекс.Метрики (только цифры). Пусто — сниппет из index.html
+    # вырезается: локальный стенд, тесты и чужие копии не шлют хиты в чужой счётчик.
+    METRIKA_ID = os.environ.get("METRIKA_ID", "").strip()
+    if not METRIKA_ID.isdigit():
+        METRIKA_ID = ""
+
+
+# Блок Метрики в static/index.html: между маркерами, номер счётчика — __METRIKA_ID__.
+_METRIKA_BLOCK = re.compile(rb"[ \t]*<!-- metrika:start -->.*?<!-- metrika:end -->\n?", re.S)
+
+
+def render_index(raw: bytes, counter_id: str = "") -> bytes:
+    """index.html для отдачи: подставить номер счётчика или убрать блок целиком."""
+    if counter_id:
+        return raw.replace(b"__METRIKA_ID__", counter_id.encode("ascii"))
+    return _METRIKA_BLOCK.sub(b"", raw)
 
 
 # ---------------------------------------------------------------------------
@@ -207,13 +224,26 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
         if path.startswith("/api/"):
             return self.send_json(404, {"error": "Неизвестный метод API"})
         # статика: только / и /static/<файл> (каталог static/ рядом со скриптом)
-        if path == "/":
-            self.path = "/index.html"
-        elif path.startswith("/static/"):
+        if path in ("/", "/static/index.html"):
+            return self.send_index(head)
+        if path.startswith("/static/"):
             self.path = path[len("/static"):]
         else:
             return self.send_error(HTTPStatus.NOT_FOUND)
         return super().do_HEAD() if head else super().do_GET()
+
+    def send_index(self, head: bool) -> None:
+        """index.html идёт не через SimpleHTTPRequestHandler: в него подставляется
+        номер счётчика Метрики (или блок вырезается), поэтому без кэша."""
+        with open(os.path.join(STATIC_DIR, "index.html"), "rb") as f:
+            body = render_index(f.read(), Config.METRIKA_ID)
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-cache")
+        self.end_headers()
+        if not head:
+            self.wfile.write(body)
 
     def do_GET(self) -> None:  # noqa: N802
         return self._dispatch(head=False)
