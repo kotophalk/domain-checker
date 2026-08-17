@@ -1,0 +1,41 @@
+{
+  "hub": {
+    "name": "Делосвод",
+    "url": "https://delosvod.ru"
+  },
+  "tools": [
+    {
+      "id": "slovostat",
+      "name": "Словостат",
+      "order": 20,
+      "pricing": "free",
+      "tagline": "Подсчёт слов и символов на странице по URL — только видимый текст",
+      "url": "https://slovostat.ru"
+    },
+    {
+      "id": "svobodomen",
+      "name": "Свободомен",
+      "order": 30,
+      "pricing": "free",
+      "tagline": "Массовая проверка свободных доменов: .ru, .рф, .com и ещё 1200+ зон",
+      "url": "https://svobodomen.ru"
+    },
+    {
+      "id": "domenomer",
+      "name": "Доменомер",
+      "order": 40,
+      "pricing": "free",
+      "tagline": "Массовая проверка Ahrefs Domain Rating (DR) списком доменов, с экспортом в CSV",
+      "url": "https://domenomer.ru"
+    },
+    {
+      "id": "slovoprav",
+      "name": "Словоправ",
+      "order": 10,
+      "pricing": "paid",
+      "tagline": "ТЗ для копирайтера по реальному ТОПу Яндекса за 2–4 минуты",
+      "url": "https://slovoprav.ru"
+    }
+  ],
+  "updated": "2026-08-16"
+}
