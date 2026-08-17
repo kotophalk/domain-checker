@@ -47,6 +47,7 @@ Docker: `docker build -t domain-checker . && docker run -p 8080:8080 domain-chec
 - `checker.py` — ядро, не знает про HTTP. Публичный вход `check_domain(raw) -> dict`, никогда не бросает исключений.
 - `app.py` — `ThreadingHTTPServer` + наследник `SimpleHTTPRequestHandler`: маршрутизация, лимиты, JSON-ошибки, статика.
 - `static/index.html` — весь фронтенд (инлайновые CSS + ванильный JS).
+- `static/privacy.html` — политика конфиденциальности, отдаётся по `/privacy`; ссылка в футере главной. Cookie-уведомление (`#cookie-notice`, cookie `nc_accepted` на 30 дней, как в «Крошке моей») живёт внутри блока Метрики — без счётчика сервис cookie не ставит.
 - `data/rdap_dns.json` — снимок RDAP-bootstrap IANA (TLD → базовые URL RDAP). Загружается при импорте; при `RDAP_BOOTSTRAP_REFRESH=1` (по умолчанию) фоновый поток обновляет его с `data.iana.org` при старте и раз в сутки. Обновлять снимок в репозитории: скачать `https://data.iana.org/rdap/dns.json` и положить как есть.
 - `tests/fixtures/whois/<tld>/{free,taken}.txt` — реальные ответы whois-серверов, записанные 2026-08-15. Это контракт паттернов: `test_checker.ClassifyWhoisFixturesTests` гоняет `classify_whois` по всем файлам.
 

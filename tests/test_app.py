@@ -147,13 +147,23 @@ class MiscRoutesTests(ServerTestCase):
         self.assertGreater(int(headers["Content-Length"]), 0)
 
     def test_index_without_metrika_id_has_no_counter(self):
-        """По умолчанию (стенд, тесты, чужие копии) хиты в Метрику не шлются."""
+        """По умолчанию (стенд, тесты, чужие копии) хиты в Метрику не шлются — и cookie-уведомление не нужно."""
         app.Config.METRIKA_ID = ""
         for p in ("/", "/static/index.html"):
             _, _, body = self.get(p)
             self.assertNotIn(b"mc.yandex.ru", body, p)
             self.assertNotIn(b"__METRIKA_ID__", body, p)
             self.assertNotIn(b"metrika:start", body, p)
+            self.assertNotIn(b'id="cookie-notice"', body, p)
+            self.assertIn(b'href="/privacy"', body, p)  # ссылка в футере — всегда
+
+    def test_privacy_page(self):
+        status, headers, body = self.get("/privacy")
+        self.assertEqual(status, 200)
+        self.assertIn("text/html", headers["Content-Type"])
+        self.assertIn("Политика конфиденциальности".encode(), body)
+        self.assertIn(b"502917677947", body)
+        self.assertEqual(self.get("/privacy", method="HEAD")[0], 200)
 
     def test_index_with_metrika_id_renders_counter(self):
         app.Config.METRIKA_ID = "12345678"
@@ -166,6 +176,8 @@ class MiscRoutesTests(ServerTestCase):
             self.assertIn(b"https://mc.yandex.ru/watch/12345678", body)
             self.assertIn(b"webvisor:false", body)
             self.assertNotIn(b"__METRIKA_ID__", body)
+            self.assertIn(b'id="cookie-notice"', body)
+            self.assertIn(b"nc_accepted=1", body)
         finally:
             app.Config.METRIKA_ID = ""
 

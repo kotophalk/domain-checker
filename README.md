@@ -46,6 +46,8 @@ docker run -d --name domain-checker -p 8080:8080 --restart unless-stopped domain
 
 Служебные: `GET /api/limits` → `{"max_domains", "rate_limit_per_min"}`; `GET /api/tlds` → список зон, для которых источник известен заранее; `GET /healthz`.
 
+Страницы: `/` — интерфейс, `/privacy` — политика конфиденциальности (`static/privacy.html`). Счётчик Яндекс.Метрики и уведомление о cookie появляются только при заданном `METRIKA_ID`.
+
 ## Настройки (переменные окружения)
 
 | Переменная | По умолчанию | Смысл |

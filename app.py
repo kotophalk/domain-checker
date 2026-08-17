@@ -223,10 +223,12 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
                                         "rdap_publication": checker.rdap_bootstrap.publication})
         if path.startswith("/api/"):
             return self.send_json(404, {"error": "Неизвестный метод API"})
-        # статика: только / и /static/<файл> (каталог static/ рядом со скриптом)
+        # статика: только /, /privacy и /static/<файл> (каталог static/ рядом со скриптом)
         if path in ("/", "/static/index.html"):
             return self.send_index(head)
-        if path.startswith("/static/"):
+        if path == "/privacy":
+            self.path = "/privacy.html"
+        elif path.startswith("/static/"):
             self.path = path[len("/static"):]
         else:
             return self.send_error(HTTPStatus.NOT_FOUND)

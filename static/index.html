@@ -52,6 +52,12 @@
         .other-tools-list a:hover .tool-name { color: #2980b9; }
         .other-tools-list .tool-desc { font-size: 12px; line-height: 1.4; }
         @media (max-width: 600px) { .other-tools { padding: 0; } .other-tools-list { grid-template-columns: 1fr; } }
+        /* Уведомление о cookie (выводится только вместе со счётчиком Метрики) */
+        #cookie-notice { position: fixed; left: 20px; bottom: 20px; z-index: 9999; width: 320px; max-width: calc(100vw - 40px); padding: 14px 16px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); font-size: 13px; line-height: 1.5; color: #555; display: none; }
+        #cookie-notice.show { display: block; }
+        #cookie-notice p { margin: 0 0 8px; }
+        #cookie-notice a { color: #3498db; }
+        #cookie-notice button { width: auto; padding: 6px 14px; font-size: 13px; float: right; }
     </style>
 </head>
 <body>
@@ -78,7 +84,7 @@
       <li><a href="https://slovoprav.ru/?utm_source=svobodomen&amp;utm_medium=footer&amp;utm_campaign=ecosystem&amp;utm_content=slovoprav"><span class="tool-name">Словоправ</span><span class="tool-desc">ТЗ для копирайтера по реальному ТОПу Яндекса за 2–4 минуты</span></a></li>
       <!-- ecosystem-footer:end --></ul>
     </nav>
-    <footer>Данные — из RDAP и whois регистратур. Результат «Свободен» означает, что домен не найден в реестре на момент проверки; окончательную доступность подтверждает регистратор.<br>Бесплатный инструмент экосистемы <a href="https://delosvod.ru/?utm_source=svobodomen&amp;utm_medium=footer&amp;utm_campaign=ecosystem&amp;utm_content=hub">Делосвод</a>.</footer>
+    <footer>Данные — из RDAP и whois регистратур. Результат «Свободен» означает, что домен не найден в реестре на момент проверки; окончательную доступность подтверждает регистратор.<br>Бесплатный инструмент экосистемы <a href="https://delosvod.ru/?utm_source=svobodomen&amp;utm_medium=footer&amp;utm_campaign=ecosystem&amp;utm_content=hub">Делосвод</a>. <a href="/privacy">Политика конфиденциальности</a></footer>
 
     <script>
         (function () {
@@ -210,6 +216,14 @@
     ym(__METRIKA_ID__,"init",{clickmap:false,trackLinks:true,accurateTrackBounce:true,webvisor:false});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/__METRIKA_ID__" style="position:absolute;left:-9999px" alt=""></div></noscript>
+    <div id="cookie-notice" role="dialog" aria-labelledby="cookie-notice-text">
+        <p id="cookie-notice-text">Мы используем файлы с данными (cookie) для работы сайта и обезличенной статистики Яндекс.Метрики. <a href="/privacy">Политика конфиденциальности</a></p>
+        <button type="button" id="cookie-notice-ok" aria-label="Принять и закрыть">ОК</button>
+    </div>
+    <script>
+    (function(){var n=document.getElementById('cookie-notice');if(!n||/(^|; )nc_accepted=1(;|$)/.test(document.cookie)){if(n)n.remove();return;}
+    n.className='show';document.getElementById('cookie-notice-ok').addEventListener('click',function(){document.cookie='nc_accepted=1; max-age=2592000; path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');n.remove();});})();
+    </script>
     <!-- metrika:end -->
 </body>
 </html>
