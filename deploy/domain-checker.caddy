@@ -7,16 +7,23 @@
 #   sudo -u caddy caddy validate --config /etc/caddy/Caddyfile
 #   sudo systemctl reload caddy
 #
-# Сертификат Caddy получает и продлевает сам — но только после того, как
-# A-запись домена указывает на этот сервер (135.106.185.112).
+# Сертификаты Caddy получает и продлевает сам — но только после того, как
+# A-запись домена указывает на этот сервер (135.106.185.112). Новые имена
+# добавлять сюда ТОЛЬКО после DNS: иначе Caddy упрётся в лимиты Let's Encrypt
+# (5 неудачных проверок в час на имя).
 #
-# Редиректы с бренд-доменов svobodomen.ru / свободомен.рф — в соседнем файле
-# svobodomen-redirects.caddy; ставится отдельно, когда у них появится DNS.
+# Канонический адрес — svobodomen.ru (с 16.08.2026; до этого — svobodomen.delosvod.ru,
+# поддомен хаба). www, старый поддомен и свободомен.рф (punycode
+# xn--90abhe8ahcbby.xn--p1ai) — постоянные редиректы на канон.
 
-svobodomen.delosvod.ru {
+svobodomen.ru {
 	import common svobodomen
 
 	# Ответ /api/check на 20 доменов .ru занимает до ~10 с (интервал 0.5 с к
 	# whois TCI). У Caddy нет дефолтного таймаута апстрима, как у nginx — ок.
 	reverse_proxy 127.0.0.1:8002
+}
+
+www.svobodomen.ru, svobodomen.delosvod.ru, xn--90abhe8ahcbby.xn--p1ai, www.xn--90abhe8ahcbby.xn--p1ai {
+	redir https://svobodomen.ru{uri} permanent
 }

@@ -1,6 +1,6 @@
 # Свободомен (domain-checker)
 
-**https://svobodomen.delosvod.ru** — бесплатный сервис для быстрой массовой проверки доступности доменов: `.ru`, `.рф`, `.su`, `.com`, `.net`, `.org`, `.info`, `.app`, `.online` и **более 1200 зон**. Списком, без регистрации. Инструмент экосистемы [Делосвод](https://delosvod.ru/).
+**https://svobodomen.ru** — бесплатный сервис для быстрой массовой проверки доступности доменов: `.ru`, `.рф`, `.su`, `.com`, `.net`, `.org`, `.info`, `.app`, `.online` и **более 1200 зон**. Списком, без регистрации. Инструмент экосистемы [Делосвод](https://delosvod.ru/).
 
 ## Особенности
 
@@ -76,7 +76,7 @@ docker compose up -d --build
 curl -s http://127.0.0.1:8002/healthz
 ```
 
-Домен: [`deploy/domain-checker.caddy`](deploy/domain-checker.caddy) (`svobodomen.delosvod.ru` → `127.0.0.1:8002`) кладётся в `/etc/caddy/conf.d/`, затем `sudo -u caddy caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy`. Сертификат Caddy получит сам. Редиректы с бренд-доменов `svobodomen.ru` / `свободомен.рф` — [`deploy/svobodomen-redirects.caddy`](deploy/svobodomen-redirects.caddy), ставится отдельно, когда их A-записи укажут на сервер.
+Домен: [`deploy/domain-checker.caddy`](deploy/domain-checker.caddy) (`svobodomen.ru` → `127.0.0.1:8002`; www, `svobodomen.delosvod.ru` и `свободомен.рф` → 301 на `svobodomen.ru`) кладётся в `/etc/caddy/conf.d/`, затем `sudo -u caddy caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy`. Сертификат Caddy получит сам. Редиректы с бренд-доменов `svobodomen.ru` / `свободомен.рф` — [`deploy/svobodomen-redirects.caddy`](deploy/svobodomen-redirects.caddy), ставится отдельно, когда их A-записи укажут на сервер.
 
 Обновление: `/opt/domain-checker/deploy/update.sh` (подтягивает `origin/main`, пересобирает, ждёт `/healthz`). Автодеплой: GitHub Actions после зелёных тестов на `main` запускает тот же скрипт по SSH-ключу с forced command; секреты `DEPLOY_SSH_KEY`, `DEPLOY_HOST`, `DEPLOY_KNOWN_HOSTS` — как у slovostat.
 
