@@ -6,6 +6,9 @@
     <title>Свободомен — проверка свободных доменов: .ru, .рф, .su, .com и другие</title>
     <meta name="description" content="Свободомен — быстрая массовая проверка свободных доменов: .ru, .рф, .su, .com, .net, .org и более 1200 зон. Списком, бесплатно, без регистрации.">
     <link rel="canonical" href="https://svobodomen.ru/">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/static/favicon.ico" sizes="32x32">
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
     <meta property="og:title" content="Свободомен — проверка свободных доменов">
     <meta property="og:description" content="Массовая проверка доменов списком: .ru, .рф, .su, .com и более 1200 зон. Бесплатно, без регистрации.">
     <meta property="og:type" content="website">
@@ -14,7 +17,8 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 640px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; margin: 0 0 4px; }
+        h1 { display: flex; align-items: center; justify-content: center; gap: 0.4em; color: #2c3e50; margin: 0 0 4px; }
+        h1 .mark { width: 1em; height: 1em; flex: none; }
         p.tagline { text-align: center; color: #7f8c8d; margin: 0 0 18px; font-size: 15px; }
         p.hint { color: #666; font-size: 14px; }
         footer a { color: #7f8c8d; }
@@ -62,7 +66,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Свободомен</h1>
+        <h1><svg class="mark" viewBox="0 0 24 24" fill="none" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M4 4h.01M4 20h.01" stroke="#64748B"/><path d="M10 4h10M10 12h6M10 20h10" stroke="#64748B"/><path d="M4 12h.01" stroke="#3498DB"/></svg>Свободомен</h1>
         <p class="tagline">Проверка свободных доменов списком</p>
         <p class="hint">Введите домены — каждый с новой строки или через запятую. Поддерживаются <span id="zonesHint">.ru, .рф, .su, .com и сотни других зон</span>. Проверяются домены второго уровня (например, <code>example.ru</code>, <code>пример.рф</code>, <code>example.co.uk</code>).</p>
         <textarea id="domainsInput" placeholder="example.ru&#10;пример.рф&#10;test-domain-123.com"></textarea>
