@@ -67,7 +67,7 @@ Docker: `docker build -t domain-checker . && docker run -p 8080:8080 domain-chec
 - `RateLimiter` — token bucket на IP (`RATE_LIMIT_PER_MIN`/`RATE_LIMIT_BURST`), стоимость запроса = число доменов → `429` JSON + `Retry-After`. IP из `X-Forwarded-For` только при `TRUST_PROXY=1`.
 - `HostGate` в `checker.py` — минимальный интервал между запросами к одному whois-/RDAP-хосту, общий для всех потоков (`WHOIS_MIN_INTERVAL`=0.5 с — TCI банит за частые запросы). Плюс `UPSTREAM_CONCURRENCY` (семафор на все исходящие) и `CHECK_WORKERS` (пул проверок на весь сервер). Меняя одно, помните про другие: пул больше семафора просто ждёт; интервал меньше 0.5 к TCI — риск бана IP.
 - `TTLCache` — кэшируются только успешные результаты (`error is None`), `CACHE_TTL`=60 с. Ошибки не кэшируются намеренно.
-- Статика: только `/` и `/static/<файл>` из каталога `static/` рядом со скриптом; листинг запрещён; `/app.py`, `/data/...` и traversal → 404. `HEAD` идёт через `super().do_HEAD()` — иначе базовый класс отдаст тело.
+- Статика: только `/`, `/privacy`, `/favicon.ico` и `/static/<файл>` из каталога `static/` рядом со скриптом; листинг запрещён; `/app.py`, `/data/...` и traversal → 404. `HEAD` идёт через `super().do_HEAD()` — иначе базовый класс отдаст тело.
 - `index.html` (по `/` и `/static/index.html`) отдаётся своим `send_index`, а не `SimpleHTTPRequestHandler`: блок Метрики между `<!-- metrika:start -->…<!-- metrika:end -->` с плейсхолдером `__METRIKA_ID__` либо получает номер из `METRIKA_ID`, либо вырезается целиком (`render_index`). Пустая переменная — ни одного внешнего запроса.
 
 ### Контракт API

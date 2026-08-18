@@ -140,6 +140,15 @@ class MiscRoutesTests(ServerTestCase):
         self.assertEqual(headers["X-Content-Type-Options"], "nosniff")
         self.assertEqual(self.get("/static/index.html")[0], 200)
 
+    def test_favicon(self):
+        """Иконки — из static/ (файлы генерирует brand/build.py репозитория delosvod); /favicon.ico ещё и из корня."""
+        for p in ("/static/favicon.svg", "/static/favicon.ico", "/favicon.ico"):
+            status, headers, body = self.get(p)
+            self.assertEqual(status, 200, p)
+            self.assertTrue(headers["Content-Type"].startswith("image/"), p)
+            self.assertGreater(len(body), 0, p)
+        self.assertIn(b'<link rel="icon" href="/static/favicon.svg"', self.get("/")[2])
+
     def test_head_static_has_no_body(self):
         status, headers, body = self.get("/", method="HEAD")
         self.assertEqual(status, 200)

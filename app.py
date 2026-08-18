@@ -228,6 +228,8 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
             return self.send_index(head)
         if path == "/privacy":
             self.path = "/privacy.html"
+        elif path == "/favicon.ico":  # старые клиенты и роботы ходят в корень, минуя <link rel="icon">
+            self.path = "/favicon.ico"
         elif path.startswith("/static/"):
             self.path = path[len("/static"):]
         else:
