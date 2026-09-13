@@ -29,6 +29,14 @@
       "url": "https://domenomer.ru"
     },
     {
+      "id": "vestohod",
+      "name": "Вестоход",
+      "order": 60,
+      "pricing": "freemium",
+      "tagline": "Трекер индексации: узнавать о вылете страницы из индекса первым, а не от клиента",
+      "url": "https://vestohod.ru"
+    },
+    {
       "id": "slovoprav",
       "name": "Словоправ",
       "order": 10,
@@ -37,5 +45,5 @@
       "url": "https://slovoprav.ru"
     }
   ],
-  "updated": "2026-08-16"
+  "updated": "2026-09-13"
 }
