@@ -172,6 +172,10 @@ class MiscRoutesTests(ServerTestCase):
         self.assertIn("text/html", headers["Content-Type"])
         self.assertIn("Политика конфиденциальности".encode(), body)
         self.assertIn(b"502917677947", body)
+        # Домены уходят в query и попадают в журнал запросов: политика не должна обещать, что они нигде не остаются
+        # (расхождение Р7 антикризисного плана, исправлено 16.11.2026).
+        self.assertNotIn("Введённые имена и результаты проверки не сохраняются".encode(), body)
+        self.assertIn("попадают только в технические журналы".encode(), body)
         self.assertEqual(self.get("/privacy", method="HEAD")[0], 200)
 
     def test_index_with_metrika_id_renders_counter(self):
