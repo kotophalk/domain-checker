@@ -24,6 +24,7 @@ log = logging.getLogger("app")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
+ROBOTS_TXT = b"User-agent: *\nAllow: /\nDisallow: /api/\n"
 
 
 def _env_int(name: str, default: int) -> int:
@@ -223,6 +224,8 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
                                         "rdap_publication": checker.rdap_bootstrap.publication})
         if path.startswith("/api/"):
             return self.send_json(404, {"error": "Неизвестный метод API"})
+        if path == "/robots.txt":
+            return self.send_robots(head)
         # статика: только /, /privacy и /static/<файл> (каталог static/ рядом со скриптом)
         if path in ("/", "/static/index.html"):
             return self.send_index(head)
@@ -248,6 +251,16 @@ class DomainCheckerHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         if not head:
             self.wfile.write(body)
+
+    def send_robots(self, head: bool) -> None:
+        """Роботы первым делом спрашивают /robots.txt. Страницы индексировать можно,
+        /api/ — нет: там JSON по запросу, обходить нечего (как у Доменомера)."""
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Length", str(len(ROBOTS_TXT)))
+        self.end_headers()
+        if not head:
+            self.wfile.write(ROBOTS_TXT)
 
     def do_GET(self) -> None:  # noqa: N802
         return self._dispatch(head=False)

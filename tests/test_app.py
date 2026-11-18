@@ -178,6 +178,22 @@ class MiscRoutesTests(ServerTestCase):
         self.assertIn("попадают только в технические журналы".encode(), body)
         self.assertEqual(self.get("/privacy", method="HEAD")[0], 200)
 
+    def test_robots_txt(self):
+        """Э6 антикризисного плана: без robots.txt роботы получали 404; API им обходить нечего."""
+        status, headers, body = self.get("/robots.txt")
+        self.assertEqual(status, 200)
+        self.assertTrue(headers["Content-Type"].startswith("text/plain"))
+        self.assertEqual(body, b"User-agent: *\nAllow: /\nDisallow: /api/\n")
+        status, _, body = self.get("/robots.txt", method="HEAD")
+        self.assertEqual((status, body), (200, b""))
+
+    def test_cta_names_both_search_engines(self):
+        """Словоправ работает и с Google — призыв после результата не должен говорить «только Яндекс».
+        Проверяется сам призыв: в футере экосистемы та же фраза есть в подзаголовке Словоправа."""
+        body = self.get("/")[2].decode()
+        cta = body.split('id="cta">', 1)[1].split("</p>", 1)[0]
+        self.assertIn("ТОПу Яндекса или Google", cta)
+
     def test_index_with_metrika_id_renders_counter(self):
         app.Config.METRIKA_ID = "12345678"
         try:
